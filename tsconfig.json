@@ -24,7 +24,7 @@
     ],
     "useDefineForClassFields": false,
     "paths": {
-      "@services/utils/*": ["src/app/services/utils/*"]
+      "@services/*": ["src/app/services/*"],
     }
   },
   "angularCompilerOptions": {

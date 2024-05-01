@@ -27,7 +27,7 @@ ion-content {
     p {
       margin-top: 20px;
       font-size: 1rem;
-      color: #7b7b7b;
+      color: var(--ion-color-secondary);
     }
   }
   .login-form {
@@ -37,12 +37,21 @@ ion-content {
       ion-item:part(native) {
         padding-left: 0px;
       }
-      ion-icon {
+      ion-icon.icon-left {
         position: absolute;
-        top: 32px;
+        top: 37px;
         z-index: 2;
         font-size: 1.2rem;
         left: 15px;
+        cursor: pointer;
+      }
+      ion-icon.icon-right {
+        position: absolute;
+        top: 37px;
+        z-index: 2;
+        font-size: 1.8rem;
+        right: 0px;
+        cursor: pointer;
       }
       ion-label {
         position: absolute;
@@ -55,7 +64,7 @@ ion-content {
         font-size: 0.9rem;
         --padding-start: 36px;
         --padding-top: 36px;
-        color: #7b7b7b;
+        color: var(--ion-color-secondary);
       }
       p {
         margin: 0;
@@ -67,14 +76,14 @@ ion-content {
   .action-button {
     text-align: center;
     .login-button {
-      --background: #85c885;
+      --background: var(--ion-color-primary);
       width: 100%;
       font-weight: bold;
     }
     p {
       margin-top: 15px;
       font-size: 1rem;
-      color: #7b7b7b;
+      color: var(--ion-color-secondary);
     }
   }
 }

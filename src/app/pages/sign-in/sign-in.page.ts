@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UtilsService } from '@services/utils/utils.service';
+import { ApiService } from '@services/api/api.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -9,11 +10,13 @@ import { UtilsService } from '@services/utils/utils.service';
 })
 export class SignInPage implements OnInit {
   loginForm!: FormGroup;
+  passwordFieldType: string = 'password';
 
   constructor(
     private formBuilder: FormBuilder,
-    private utilsService: UtilsService)
-  {}
+    private utilsService: UtilsService,
+    private apiService: ApiService,
+  ) {}
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -27,9 +30,27 @@ export class SignInPage implements OnInit {
     return this.utilsService.filterOnlyNumbers(event);
   }
 
+  togglePasswordFieldType() {
+    this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password';
+  }
+
   onSubmit() {
     if (this.loginForm.valid) {
       console.log(this.loginForm.value);
+      this.fetchData();
     }
+  }
+
+  fetchData() {
+    this.apiService.fetchData().subscribe(
+      (data) => {
+        console.debug('Data fetched successfully:', data);
+        // Aquí puedes manejar los datos obtenidos según tus necesidades
+      },
+      (error) => {
+        console.error('Error fetching data:', error);
+        // Aquí puedes manejar el error según tus necesidades
+      }
+    );
   }
 }

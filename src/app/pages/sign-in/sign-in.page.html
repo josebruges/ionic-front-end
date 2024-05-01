@@ -1,0 +1,67 @@
+<ion-content [fullscreen]="true">
+  <form *ngIf="loginForm" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div class="login-section ion-padding">
+
+      <div class="heading ion-padding">
+        <img class="heading-img-brand" src="./assets/brand.png" alt="incluirtec">
+        <p>Inicia sesión para continuar</p>
+      </div>
+
+      <div class="login-form ion-padding">
+        <div class="form-input">
+          <ion-icon name="id-card-outline"></ion-icon>
+          <ion-item>
+            <ion-label position="floating">Número de documento</ion-label>
+            <ion-input formControlName="dni" type="text" pattern="[0-9]*" (keypress)="filterOnlyNumbers($event)" (paste)="filterOnlyNumbers($event)"></ion-input>
+          </ion-item>
+          <div class="ion-text-divider" *ngIf="loginForm.get('dni')?.invalid && (loginForm.get('dni')?.dirty || loginForm.get('dni')?.touched)">
+            <ion-text color="danger">
+              <p *ngIf="loginForm.get('dni')?.errors['required']">El número de documento es requerido.</p>
+              <p *ngIf="loginForm.get('dni')?.errors['pattern']">Ingrese solo números.</p>
+            </ion-text>
+          </div>
+        </div>
+
+        <div class="form-input">
+          <ion-icon name="mail-outline"></ion-icon>
+          <ion-item>
+            <ion-label position="floating">Correo electrónico</ion-label>
+            <ion-input formControlName="email" type="email"></ion-input>
+          </ion-item>
+          <div class="ion-text-divider" *ngIf="loginForm.get('email')?.invalid && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)">
+            <ion-text color="danger">
+              <p *ngIf="loginForm.get('email')?.errors['required']">El correo es requerido.</p>
+              <p *ngIf="loginForm.get('email')?.errors['email']">Ingrese un correo válido.</p>
+            </ion-text>
+          </div>
+        </div>
+
+        <div class="form-input">
+          <ion-icon name="lock-closed-outline"></ion-icon>
+          <ion-item>
+            <ion-label position="floating">Contraseña</ion-label>
+            <ion-input formControlName="password" type="password"></ion-input>
+          </ion-item>
+          <div class="ion-text-divider" *ngIf="loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)">
+            <ion-text color="danger">
+              <p *ngIf="loginForm.get('password')?.errors['required']">La contraseña es requerido.</p>
+              <p *ngIf="loginForm.get('password')?.errors['email']">Ingrese una contraseña válido.</p>
+            </ion-text>
+          </div>
+        </div>
+      </div>
+
+      <div class="action-button ion-padding">
+        <ion-button
+          class="login-button"
+          size="large"
+          type="submit"
+          [disabled]="!loginForm.valid"
+        >
+          Iniciar Sesión
+        </ion-button>
+      </div>
+    </div>
+  </form>
+
+</ion-content>

@@ -1,0 +1,7 @@
+{
+  "name": "IncluirTech",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

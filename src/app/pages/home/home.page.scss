@@ -1,0 +1,137 @@
+.heading-img-brand {
+    width: 100px;
+    margin-left: 10px;
+}
+ion-popover {
+    --height: 30px;
+    --width: 200px;
+    border-radius: 25px 25px;
+    cursor: pointer;
+    .popover-trigger-div {
+        display: flex;
+        justify-content: space-between;
+        margin: 0px 10px;
+        padding-top: 5px;
+    }
+    .popover-trigger-label {
+        display: flex;
+        justify-content: space-between;
+        margin: 0px 10px;
+        padding-top: 5px;
+        color: var(--ion-color-secondary);
+    }
+}
+.heading-search-text {
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+ion-toolbar {
+    ion-fab-button {
+        --background: var(--ion-color-primary);
+        --color: #FFFFFF;
+        font-weight: bold;
+        width: 30px;
+        height: 30px;
+        ion-icon {
+            font-size: 1.2rem;
+        }
+    }
+}
+ion-toolbar.border-none {
+    --border-color: none;
+}
+ion-searchbar {
+    --background: var(--ion-color-primary);
+    --color: #FFFFFF;
+    --placeholder-color: #FFFFFF;
+    --icon-color: #FFFFFF;
+    --clear-button-color: #FFFFFF;
+    --border-radius: 4px;
+    height: 20px;
+}
+  
+ion-searchbar.ios.custom {
+    --cancel-button-color: var(--ion-color-primary);
+}
+  
+ion-searchbar.md.custom {
+    --cancel-button-color: #FFFFFF;
+}
+ion-content {
+    --background: #ecf0f6;
+}
+.list-todo-items{
+    margin: 10px;
+    border-radius: 15px 15px;
+    --background: #FFFFFF;
+}
+
+
+.text-title-enter-search {
+    font-size: 12px;
+    color: var(--ion-color-secondary);
+    text-align: left;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    white-space: normal;
+    text-overflow: ellipsis;
+    width: 320px;
+    strong {
+      color: #0275a1;
+    }
+}
+.item-content {
+    margin: 10px 4px;
+    .item-texts {
+        p {
+            font-size: 12px;
+            color: var(--ion-color-secondary);
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            white-space: normal;
+            text-overflow: ellipsis;
+        }
+        h3 {
+            font-size: 12px;
+            color: var(--ion-color-secondary);
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            white-space: normal;
+            text-overflow: ellipsis;
+        }
+    }
+}
+.footer-toolbar {
+    div {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 0px 10px;
+        ion-button.ToggleAllItemsSelection {
+            align-self: flex-start;
+            --color: var(--ion-color-secondary);
+            font-weight: bold;
+            font-size: 12px;
+            text-transform: capitalize;
+        }
+        ion-button.async {
+            align-self: flex-end;
+            --background: var(--ion-color-primary);
+            --color: var(--ion-color-secondary);
+            text-transform: capitalize;
+            font-weight: bold;
+            font-size: 12px;
+            ion-icon {
+                margin-left: 10px;
+            }
+        }
+    }
+}

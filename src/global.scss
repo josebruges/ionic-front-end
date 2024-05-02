@@ -24,3 +24,14 @@
 @import "@ionic/angular/css/text-alignment.css";
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
+
+ion-checkbox {
+    --size: 32px;
+    --checkbox-background-checked: var(--ion-color-primary);
+    --checkmark-color: var(--ion-color-secondary);
+  }
+  
+ion-checkbox::part(container) {
+    border-radius: 6px;
+    border: 2px solid var(--ion-color-primary);;
+}

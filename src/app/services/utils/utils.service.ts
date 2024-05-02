@@ -10,19 +10,20 @@ export class UtilsService {
   filterOnlyNumbers(event: KeyboardEvent | ClipboardEvent) {
     if (event instanceof ClipboardEvent) {
       const clipboardData = event.clipboardData;
-      if(clipboardData){
+      if (clipboardData) {
         const pastedText = clipboardData.getData('text/plain');
-        if (!pastedText.match(/^[0-9]*$/)) {
+        if (!pastedText.match(/^\d+$/)) {
           event.preventDefault();
         }
       }
     } else {
       const key = event.key;
       const regex = /^[0-9]*$/;
-      if (!regex.test(key)) {
+      if (key !== '+' && !regex.test(key)) {
         event.preventDefault();
       }
     }
   }
+  
 }
 

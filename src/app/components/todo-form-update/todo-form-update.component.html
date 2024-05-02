@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button
+        size="small"
+        color="medium"
+        (click)="cancel()"
+        class="heading-btn"
+      >
+        Volver
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  
+  <form *ngIf="todoFormUpdate" [formGroup]="todoFormUpdate" (ngSubmit)="onSubmit()">
+    <div class="heading ion-padding ion-text-center">
+      <h3>Editar solicitud</h3>
+    </div>
+    <div class="login-form ion-padding">
+      <div class="form-input">
+        <ion-item>
+          <ion-label position="floating">Título</ion-label>
+          <ion-input maxlength="50" formControlName="title" type="text"></ion-input>
+        </ion-item>
+        <div class="ion-text-divider" *ngIf="loginForm && loginForm.get('title')?.invalid && (loginForm.get('title')?.dirty || loginForm.get('title')?.touched)">
+          <ion-text color="danger">
+            <p *ngIf="loginForm.get('title')?.errors['required']">El campo título es requerido.</p>
+          </ion-text>
+        </div>
+      </div>
+      <div class="form-input">
+        <ion-item>
+          <ion-checkbox formControlName="completed" ><ion-label position="floating">Completado</ion-label></ion-checkbox>
+        </ion-item>
+      </div>
+
+      <div class="action-button ion-padding">
+        <ion-button
+          class="login-button"
+          size="large"
+          type="submit"
+          [disabled]="!todoFormUpdate.valid"
+        >
+          Guardar
+        </ion-button>
+      </div>
+    </div>
+
+  </form>
+</ion-content>

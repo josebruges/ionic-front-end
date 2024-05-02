@@ -1,13 +1,143 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>home</ion-title>
+
+  <ion-toolbar class="heading-toolbar">
+    <ion-button
+      *ngIf="checkedList && filteredItems.length > 0"
+      fill="clear"
+      size="small"
+      slot="start"
+      class="ToggleAllItemsSelection"
+      (click)="onHandleCheckListShow()"
+    ><strong>OK</strong></ion-button>
+
+    <ion-button
+      *ngIf="!checkedList && filteredItems.length > 0"
+      fill="clear"
+      size="small"
+      id="popover-trigger"
+      slot="start"
+    >
+      <ion-icon name="ellipsis-horizontal-circle-outline"></ion-icon>
+    </ion-button>
+
+    <ion-popover
+      *ngIf="!checkedList && filteredItems.length > 0"
+      trigger="popover-trigger"
+      size="auto"
+      (click)="onHandleCheckListShow()"
+      [dismissOnSelect]="true"
+    >
+      <ng-template class="popover-trigger-div">
+        <ion-label class="popover-trigger-label">Sincronizar <ion-icon color="primary" name="checkmark-circle-outline"></ion-icon></ion-label>
+      </ng-template>
+    </ion-popover>
+
+    <img class="heading-img-brand" src="./assets/brand.png" alt="incluirtec">
+
+    <ion-fab-button size="small" slot="end" (click)="openModalCreate()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
   </ion-toolbar>
+
+  <ion-toolbar class="border-none">
+    <ion-searchbar
+      maxlength="100"
+      show-clear-button="always"
+      clear-icon="trash-bin"
+      placeholder="Consultar solicitud..."
+      [(ngModel)]="inputSearch"
+      (ionInput)="onHandleInputSearch($event)"
+    ></ion-searchbar>
+  </ion-toolbar>
+  
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">home</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" class="content-todo-items">
+  <div class="ion-padding text-title-enter-search" *ngIf="inputSearch">
+    <p>Resultados para: <strong>{{inputSearch}}</strong></p>
+  </div>
+
+  <ion-list *ngIf="!loaded" class="list-todo-items">
+    <ion-item>
+      <ion-label>
+        <p>
+          <ion-skeleton-text [animated]="true" style="width: 60%;"></ion-skeleton-text>
+        </p>
+        <h3>
+          <ion-skeleton-text [animated]="true" style="width: 80%;"></ion-skeleton-text>
+        </h3>
+        <p>
+          <ion-skeleton-text [animated]="true" style="width: 30%;"></ion-skeleton-text>
+        </p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-list *ngIf="loaded" class="list-todo-items">
+    <ion-item *ngFor="let item of filteredItems; let pos = index" class="item-content">
+      <ion-checkbox
+        *ngIf="checkedList"
+        (ionChange)="onHandleCheckAsync(item.id)"
+        [checked]="contentAsyncTodoItem[ item.id ] !== undefined"
+      >
+        <ion-label class="item-texts">
+          <p>
+            <strong>ID:</strong> {{item.id}}
+          </p>
+          <h3>
+            <strong>Titulo:</strong> {{item.title}}
+          </h3>
+          <p>
+            <strong>Sincronizado:</strong> {{ item.completed ? 'Pendiente' : 'Completado'}}
+          </p>
+        </ion-label>
+      </ion-checkbox>
+      <div *ngIf="!checkedList">
+        <ion-label
+          class="item-texts"
+        >
+          <p>
+            <strong>ID:</strong> {{item.id}}
+          </p>
+          <h3>
+            <strong>Titulo:</strong> {{item.title}}
+          </h3>
+          <p>
+            <strong>Sincronizado:</strong> {{ item.completed ? 'Completado' : 'Pendiente'}}
+          </p>
+        </ion-label>
+      </div>
+      <ion-icon *ngIf="!checkedList"  (click)="openModalUpdate(pos, item)" aria-hidden="true" name="create-outline" slot="end"></ion-icon>
+    </ion-item>
+
+    
+    <ion-card *ngIf="filteredItems.length === 0 && loaded" class="item-content">
+      <ion-card-header>
+        <ion-card-title>Solicitudes</ion-card-title>
+      </ion-card-header>
+    
+      <ion-card-content>
+        <i>Aun no tienes solicitudes almacenadas en la aplicación.</i>
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+
 </ion-content>
+
+<ion-footer [translucent]="true" *ngIf="contentAsyncTodoItemSize > 0">
+  <ion-toolbar class="footer-toolbar">
+    <div>
+      <ion-button
+        fill="clear"
+        size="small"
+        class="ToggleAllItemsSelection"
+        (click)="onHandleToggleAllItemsSelection()"
+      >{{contentAsyncTodoItemSize === todoItemDB.length ? ' Nada ' : ' Todo '}}</ion-button>
+      
+      <ion-button
+        size="small"
+        class="async"
+        (click)="openModalAsync()">Subir {{contentAsyncTodoItemSize}} <ion-icon name="cloud-upload-outline"></ion-icon></ion-button>
+    </div>
+  </ion-toolbar>
+</ion-footer>

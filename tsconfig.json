@@ -25,6 +25,7 @@
     "useDefineForClassFields": false,
     "paths": {
       "@services/*": ["src/app/services/*"],
+      "@interfaces/*": ["src/interfaces/*"],
     }
   },
   "angularCompilerOptions": {

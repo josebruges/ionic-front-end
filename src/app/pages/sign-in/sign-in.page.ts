@@ -1,7 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UtilsService } from '@services/utils/utils.service';
+
 import { ApiService } from '@services/api/api.service';
+import { UtilsService } from '@services/utils/utils.service';
+import { StorageService } from '@services/storage/storage.service';
+import { TodoItemDB, CustomNavigationOptions } from '@interfaces/Interfaces';
+
+import { NavController } from '@ionic/angular';
+
+
+
 
 @Component({
   selector: 'app-sign-in',
@@ -11,9 +19,12 @@ import { ApiService } from '@services/api/api.service';
 export class SignInPage implements OnInit {
   loginForm!: FormGroup;
   passwordFieldType: string = 'password';
+  loading: boolean = false;
 
   constructor(
+    private navCtrl: NavController,
     private formBuilder: FormBuilder,
+    private storageService: StorageService,
     private utilsService: UtilsService,
     private apiService: ApiService,
   ) {}
@@ -35,21 +46,54 @@ export class SignInPage implements OnInit {
   }
 
   onSubmit() {
+    this.loading = true;
     if (this.loginForm.valid) {
-      console.log(this.loginForm.value);
       this.fetchData();
+    }else{
+      this.loading = false;
     }
   }
 
   fetchData() {
     this.apiService.fetchData().subscribe(
       (data) => {
-        console.debug('Data fetched successfully:', data);
-        // Aquí puedes manejar los datos obtenidos según tus necesidades
+        localStorage.setItem('userId', data?.userId);
+        const todoItemDB: TodoItemDB = {
+          ...data,
+          syncUp: false,
+          dateSyncUp: null,
+          dateI: new Date(),
+          dateU: new Date(),
+        }
+        this.storageService.set(new Date().getTime().toString(), todoItemDB).then(resp => {
+
+          this.loading = false;
+
+          const options: CustomNavigationOptions = {
+            animationDirection: 'forward',
+            duration: 500,
+            animationBuilder: 'ease-out',
+          };
+      
+          setTimeout(() => {
+            this.navCtrl.navigateRoot('/home', options); 
+          }, 2000)
+        });
+        for(let i = 1; i <= 50; ++i){
+          const todoItemDBTest: TodoItemDB = {
+            ...data,
+            id: todoItemDB.id + i,
+            syncUp: false,
+            dateSyncUp: null,
+            dateI: new Date(),
+            dateU: new Date(),
+          }
+          this.storageService.set(new Date().getTime().toString() + '' + i, todoItemDBTest).then(resp => {
+          })
+        }
       },
       (error) => {
-        console.error('Error fetching data:', error);
-        // Aquí puedes manejar el error según tus necesidades
+        this.loading = false;
       }
     );
   }

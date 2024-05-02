@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button
+        size="small"
+        color="medium"
+        (click)="cancel()"
+        class="heading-btn"
+        [disabled]="progressPorcentage > 0 && progressPorcentage < 100"
+      >
+        {{progressPorcentage > 0 && progressPorcentage < 100 ? 'Espera...' : 'Volver'}}
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="content-div">
+    <ion-icon
+      class="icon-cloud"
+      name="cloud-upload"
+      size="large"
+      color="primary"
+    ></ion-icon>
+    
+    <div class="progress-value">
+      <ion-progress-bar [value]="progress"></ion-progress-bar>
+      <span>{{ progressPorcentage }}%</span>
+    </div>
+
+    <ion-button
+      *ngIf="progressPorcentage !== 1000"
+      class="login-button"
+      (click)="onHandleSincronizar()"
+      [disabled]="progressPorcentage > 0"
+    >{{progressPorcentage > 0 ? 'Sincronizado' : 'Sincronizar'}}</ion-button>
+
+    <ion-button
+      *ngIf="progressPorcentage === 1000"
+      class="login-button"
+      (click)="onHandleSincronizar()"
+    >Volver</ion-button>
+  </div>
+
+</ion-content>

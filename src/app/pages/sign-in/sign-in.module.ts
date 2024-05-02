@@ -14,7 +14,6 @@ import { SignInPage } from './sign-in.page';
     FormsModule,
     IonicModule,
     SignInPageRoutingModule,
-    FormsModule,
     ReactiveFormsModule,
   ],
   declarations: [SignInPage]

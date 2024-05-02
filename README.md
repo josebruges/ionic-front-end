@@ -27,9 +27,3 @@ Esta aplicación de Ionic es una prueba técnica que incluye una pantalla de ini
    - Completa el formulario de inicio de sesión con datos válidos o inválidos para probar las validaciones y la petición HTTP.
    - Una vez autenticado, explora las diferentes opciones del menú y observa cómo se comporta la aplicación.
 
-## Entrega del Código
-
-- Después de completar la prueba técnica, asegúrate de realizar un commit de tus cambios y subirlos al repositorio remoto.
-- Puedes compartir el enlace al repositorio con el evaluador para que pueda revisar tu código.
-
-¡Buena suerte!
